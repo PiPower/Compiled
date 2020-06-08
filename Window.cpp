@@ -33,7 +33,7 @@ Window::Window(int width, int height)
 	AdjustWindowRect(&wr, style,FALSE);
 
 	
-		hwnd = CreateWindowEx(0, CLASS_NAME.c_str(), L"HUJ",
+		hwnd = CreateWindowEx(0, CLASS_NAME.c_str(), L"Mandelbrot set",
 			style, CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
 			nullptr, nullptr, Hinstace, this);
 	

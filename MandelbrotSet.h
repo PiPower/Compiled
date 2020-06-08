@@ -21,7 +21,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_VIEWPORT   vp;
-	Graphics* gfx;
+	Graphics* gfx=nullptr;
 	std::vector<Point> Points;
 
 	double OffsetX = 0, OffsetY = 0;;

@@ -1,32 +1,27 @@
-/*float4 main(float2 col : Color ) : SV_Target
-{
-	col.x = abs(col.x);
-    col.y = abs(col.y);
-	return float4(col,1.0f,1.0f);
-}*/
-
 cbuffer cBuff
 {
-    float2 translation;
-    float scalling;
-    int Iteration;
+    double2 translation;
+    double scalling;
+    int Iterations;
 };
-float4 main(float2 col : Color) : SV_Target
+float4 main(float2 complex : Color) : SV_Target
 {
-//col.x *= scalling;
-//col.y *= scalling;
-//col.x += translation.x;
-//col.y += translation.y;
+ double  x = complex.x;
+ double y = complex.y;
+ x*= scalling;
+ y *= scalling;
+ x += translation.x;
+ y += translation.y;
 
 int iteration = 0;
-float ax = 0;
-float ay = 0;
-while (ax * ax + ay * ay <= 4 && iteration < 220)
+double ax = 0;
+double ay = 0;
+while (ax * ax + ay * ay <= 4 && iteration < Iterations)
 {
-    float delta_X = ax * ax - ay * ay + col.x;
-    ay = 2 * ax * ay + col.y;
+    double delta_X = ax * ax - ay * ay + x;
+    ay = 2 * ax * ay + y;
     ax = delta_X;
     iteration++;
-}
-return float4(iteration * 2 / 255, iteration * 6 / 255, iteration * 3.2 / 255, 1.0f);
+}//return float4(sin(iteration*0.45)* sin(iteration * 0.45), cos(iteration * 0.45)* cos(iteration * 0.45), iteration * 3.2 / 255, 1.0f);
+return float4((float)iteration / Iterations, (float)iteration / Iterations, (float)iteration / Iterations, 1.0f);
 }

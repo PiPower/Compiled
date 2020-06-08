@@ -21,10 +21,8 @@ Graphics::Graphics(HWND hwnd, int height, int width)
 {
 	assert(hwnd != nullptr);
 	HRESULT hr;
-	UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
-//#ifdef NDEBUG
-	flags |= D3D11_CREATE_DEVICE_DEBUG;
-//#endif 
+	UINT flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT | D3D11_CREATE_DEVICE_DEBUG;
+
 		DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferCount = 1;
 	sd.BufferDesc.Width = width;

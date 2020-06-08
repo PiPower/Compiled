@@ -58,8 +58,8 @@ void MandelbrotSet::Update(Window* wnd)
 
 	if (wnd->IsKeyPressed('Q')) Scale *= 1.1f;
 	if (wnd->IsKeyPressed('E')) Scale *= 0.95f;
-	if (wnd->IsKeyPressed('W')) Iterations += 24;
-	if (wnd->IsKeyPressed('S')) Scale -= 24;
+	if (wnd->IsKeyPressed('W')) Iterations += 32;
+	if (wnd->IsKeyPressed('S')) Iterations -= 32;
 }
 
 void MandelbrotSet::Draw()
@@ -69,8 +69,8 @@ void MandelbrotSet::Draw()
 	HRESULT hr;
 	struct ConstantBuffer 
 	{
-		float dx, dy;
-		float scale;
+		double dx, dy;
+		double scale;
 		int iterations;
 	};
 

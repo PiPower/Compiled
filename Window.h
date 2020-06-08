@@ -111,5 +111,6 @@ private:
 	int PosX;
 	int PosY;
 	std::queue<MouseEvent> MouseQueue;
+	//---------------------------------------------
 	std::wstring lol;
 };
