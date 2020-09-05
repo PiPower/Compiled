@@ -62,12 +62,16 @@ void KochSnowflake::Devide()
 		Vertex step = (*next(i, 1) - *i) / 3;
 		//step.X = abs(step.X);
 		//step.Y = abs(step.Y);
+
 		vector<Vertex> v;
 		Vertex v1( *i + step);
 		Vertex v2(*i + step * Vertex(2, 2));
        
 		Vertex OffV (v2 - v1);
-		Vertex vmid(OffV.X * cos(-PI / 3) - OffV.Y * sin(-PI / 3), OffV.X * sin(-PI / 3) + OffV.Y * cos(-PI / 3));
+		//OffV.X = abs(OffV.X);
+		//OffV.Y = abs(OffV.Y);
+
+		Vertex vmid(OffV.X * cos(PI / 3) - OffV.Y * sin(PI / 3), OffV.X * sin(PI / 3) + OffV.Y * cos(PI / 3));
 		vmid += v1;
 		
 		v.push_back(v1);
