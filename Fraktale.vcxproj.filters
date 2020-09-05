@@ -35,6 +35,9 @@
     <ClInclude Include="ChiliTimer.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="KochSnowflake.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -55,12 +58,21 @@
     <ClCompile Include="ChiliTimer.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="KochSnowflake.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MsVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="MsPS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="KSVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="KSPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

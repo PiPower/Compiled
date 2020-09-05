@@ -7,6 +7,9 @@ App::App(int width, int height)
 	wnd = new Window(width, height);
 	wnd->InitDX11();
 	MS = new MandelbrotSet( wnd->Dx11 );
+	auto v1 = Vertex(-1.0f, 0.0f);
+	auto v2 = Vertex(1.0f, 0.0f);
+	KS = new KochSnowflake(v1, v2, wnd->Dx11);
 }
 
 int App::DoFrame()
@@ -28,11 +31,13 @@ int App::DoFrame()
 
 void App::Logic()
 {
-	MS->Update(wnd);
+	//MS->Update(wnd);
+	KS->Control(wnd);
 }
 
 void App::Draw()
 {
-	MS->Draw();
+//	MS->Draw();
+	KS->Draw();
 }
 

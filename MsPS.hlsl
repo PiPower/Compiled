@@ -22,6 +22,7 @@ while (ax * ax + ay * ay <= 4 && iteration < Iterations)
     ay = 2 * ax * ay + y;
     ax = delta_X;
     iteration++;
-}//return float4(sin(iteration*0.45)* sin(iteration * 0.45), cos(iteration * 0.45)* cos(iteration * 0.45), iteration * 3.2 / 255, 1.0f);
-return float4((float)iteration / Iterations, (float)iteration / Iterations, (float)iteration / Iterations, 1.0f);
+}
+return float4(sin(iteration*0.45)* sin(iteration * 0.45), cos(iteration * 0.45)* cos(iteration * 0.45), iteration * 3.2 / 255, 1.0f);
+//return float4((float)iteration / Iterations, (float)iteration / Iterations, (float)iteration / Iterations, 1.0f);
 }

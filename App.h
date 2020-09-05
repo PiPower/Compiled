@@ -3,6 +3,7 @@
 #include <vector>
 #include "Vertex.h"
 #include "MandelbrotSet.h"
+#include "KochSnowflake.h"
 
 class App
 {
@@ -19,5 +20,6 @@ private:
 	Vertex Translation = { 0,0 };
 	bool pause = false;
 	MandelbrotSet* MS = nullptr;
+	KochSnowflake* KS = nullptr;
 };
 

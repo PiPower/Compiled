@@ -147,6 +147,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="ChiliTimer.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="KochSnowflake.h" />
     <ClInclude Include="MandelbrotSet.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
@@ -155,11 +156,20 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ChiliTimer.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="KochSnowflake.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MandelbrotSet.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="KSPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="KSVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="MsPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
