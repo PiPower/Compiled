@@ -4,11 +4,12 @@
 #include "Vertex.h"
 #include "MandelbrotSet.h"
 #include "KochSnowflake.h"
-
+#include "TriangleFractal.h"
 class App
 {
 public:
 	App(int width, int height);
+	~App();
 	int DoFrame();
 private:
 	void Logic();
@@ -21,5 +22,6 @@ private:
 	bool pause = false;
 	MandelbrotSet* MS = nullptr;
 	KochSnowflake* KS = nullptr;
+	TriangleFractal* KF = nullptr;
 };
 
