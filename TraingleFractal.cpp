@@ -7,7 +7,7 @@ int TriangleFractal::iteration = 0;
 
 TriangleFractal::TriangleFractal(Vertex T, Vertex BL, Vertex BR, Graphics* gfx)
 	:
-	gfx(gfx)
+	gfx(gfx), BotomLeft(BL), BottomRight(BR), Top(T), Scale(1.0),OffsetX(0.0),OffsetY(0.0)
 {
 	HasChildren = false;
 	iteration++;
@@ -60,6 +60,26 @@ void TriangleFractal::Draw() const
 	const UINT stride = sizeof(TriangleFractal::Point);
 	const UINT offset = 0u;
 
+	HRESULT hr;
+	struct ConstantBuffer
+	{
+		double dx, dy;
+		double scale;
+		double pad;
+	};
+
+	const ConstantBuffer cbuff{ OffsetX,OffsetY,Scale };
+	ID3D11Buffer* cbuffer;
+	D3D11_BUFFER_DESC bd = {};
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bd.Usage = D3D11_USAGE_DYNAMIC;
+	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	bd.MiscFlags = 0;
+	bd.ByteWidth = sizeof(cbuff);
+	bd.StructureByteStride = 0;
+	D3D11_SUBRESOURCE_DATA sbd = {};
+	sbd.pSysMem = &cbuff;
+	hr = gfx->pDevice->CreateBuffer(&bd, &sbd, &cbuffer);
 
 	gfx->pImmediateContext->IASetInputLayout(pInputLayout.Get());
 	gfx->pImmediateContext->IASetVertexBuffers(0, 1, pVertexBuffer.GetAddressOf(), &stride, &offset);
@@ -67,20 +87,24 @@ void TriangleFractal::Draw() const
 	gfx->pImmediateContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 	gfx->pImmediateContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 	gfx->pImmediateContext->OMSetRenderTargets(1, gfx->pRenderTargetView.GetAddressOf(), nullptr);
+	gfx->pImmediateContext->VSSetConstantBuffers(0, 1, &cbuffer);
 	gfx->pImmediateContext->RSSetViewports(1, &vp);
 	gfx->pImmediateContext->Draw(4, 0u);
+	this->DrawChildren(cbuffer);
+
+	cbuffer->Release();
 }
 
 void TriangleFractal::CreateChildren()
 {
-	/*if(!HasChildren)
+	if(!HasChildren)
 		{
 		Vertex MidLT = (BotomLeft + Top) / 2;
 		Vertex MidLR = (BotomLeft + BottomRight) / 2;
 		Vertex MidTR = (Top + BottomRight) / 2;
-		Children.push_back(TriangleFractal(MidLT ,BotomLeft, MidLR));
-		Children.push_back(TriangleFractal(MidTR, MidLR, BottomRight));
-		Children.push_back(TriangleFractal(Top, MidLT, MidTR));
+		Children.push_back(TriangleFractal(MidLT ,BotomLeft, MidLR,gfx));
+		Children.push_back(TriangleFractal(MidTR, MidLR, BottomRight, gfx));
+		Children.push_back(TriangleFractal(Top, MidLT, MidTR, gfx));
 		iteration++;
 		HasChildren = true;
 		}
@@ -90,12 +114,12 @@ void TriangleFractal::CreateChildren()
 		{
 			t.CreateChildren();
 		}
-	}*/
+	}
 }
 
 void TriangleFractal::Control(Window* wnd)
 {
-	/*while (!wnd->IsKeyboardEventEmpty())
+	while (!wnd->IsKeyboardEventEmpty())
 	{
 		const auto e = wnd->ReadKeyEvent();
 		if (e.Code == 'E' && e.Type == Window::KeyEvent::Event::Press)
@@ -104,57 +128,59 @@ void TriangleFractal::Control(Window* wnd)
 		}
 		if (e.Code == 'W' && e.Type == Window::KeyEvent::Event::Press)
 		{
-			Scale(Vertex{ 1.1, 1.1 });
+			Scale *= 1.1;
+
 		}
 		if (e.Code == 'S' && e.Type == Window::KeyEvent::Event::Press)
 		{
-			Scale(Vertex{ 0.9, 0.9 });
+			Scale *= 0.9;
+
 		}
 		if (e.Code == VK_UP && e.Type == Window::KeyEvent::Event::Press)
 		{
 
-			Translation(Vertex{ 0,-3 });
+			OffsetY -= Scale * 0.3;
 		}
 		if (e.Code == VK_DOWN && e.Type == Window::KeyEvent::Event::Press)
 		{
 
-			Translation(Vertex{ 0, 3 });
+			OffsetY += Scale * 0.3;
 		}
 		if (e.Code == VK_LEFT && e.Type == Window::KeyEvent::Event::Press)
 		{
 
-			Translation(Vertex{ -3,0 });
+			OffsetX += Scale * 0.3;
+
 		}
 		if (e.Code == VK_RIGHT && e.Type == Window::KeyEvent::Event::Press)
 		{
-			Translation(Vertex{ 3, 0 });
+			OffsetX -= Scale * 0.3;
+		
 		}
 
-	}*/
+	}
 }
 
-void TriangleFractal::Scale(Vertex Scalar)
+void TriangleFractal::DrawChildren(ID3D11Buffer* cbuffer) const
 {
-
-
-	/*BottomRight *= Scalar;
-	BotomLeft *= Scalar;
-	Top *= Scalar;
-
-	for (auto& t : Children)
+	for (auto child : Children)
 	{
-		t.Scale(Scalar);
-	}*/
+		const UINT stride = sizeof(TriangleFractal::Point);
+		const UINT offset = 0u;
+
+		gfx->pImmediateContext->IASetInputLayout(pInputLayout.Get());
+		gfx->pImmediateContext->IASetVertexBuffers(0, 1, pVertexBuffer.GetAddressOf(), &stride, &offset);
+		gfx->pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		gfx->pImmediateContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+		gfx->pImmediateContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+		gfx->pImmediateContext->OMSetRenderTargets(1, gfx->pRenderTargetView.GetAddressOf(), nullptr);
+		gfx->pImmediateContext->VSSetConstantBuffers(0, 1, &cbuffer);
+		gfx->pImmediateContext->VSSetConstantBuffers(0, 1, &cbuffer);
+		gfx->pImmediateContext->RSSetViewports(1, &vp);
+		gfx->pImmediateContext->Draw(4, 0u);
+
+		child.DrawChildren(cbuffer);
+	}
 }
 
-void TriangleFractal::Translation(Vertex Trans)
-{
-	/*BottomRight += Trans;
-	BotomLeft += Trans;
-	Top += Trans;
-	for (auto& t : Children)
-	{
-		t.Translation(Trans);
-	}*/
-}
 

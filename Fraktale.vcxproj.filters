@@ -64,7 +64,7 @@
     <ClCompile Include="KochSnowflake.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="TrojkatSierpinskiego.cpp">
+    <ClCompile Include="TraingleFractal.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>

@@ -17,8 +17,7 @@ public:
 	void Draw() const;
 	void CreateChildren();
 	void Control(Window* wnd);
-	void Scale(Vertex Scalar);
-	void Translation(Vertex Trans);
+	void DrawChildren(ID3D11Buffer* cbuffer) const;
 private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
@@ -26,9 +25,12 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_VIEWPORT   vp;
 
-	std::list<Vertex> vertex;
+	std::vector<TriangleFractal> Children;
+	Vertex BotomLeft, BottomRight, Top;
 	Graphics* gfx = nullptr;
 	bool HasChildren;
 	static int iteration;
+	double OffsetX = 0, OffsetY = 0;;
+	double Scale = 1.0f;
 };
 

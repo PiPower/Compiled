@@ -10,7 +10,7 @@ App::App(int width, int height)
 	auto v1 = Vertex(-1.0f, -0.7f);
 	auto v2 = Vertex(1.0f, -0.7f);
 	KS = new KochSnowflake(v1, v2, wnd->Dx11);
-	KF = new TriangleFractal(Vertex(0.0,1.0), Vertex(-0.5, -1.0), Vertex(0.5, -1.0),wnd->Dx11);
+	KF = new TriangleFractal(Vertex(0.0,1.0), Vertex(-0.8, -1.0), Vertex(0.8, -1.0),wnd->Dx11);
 }
 
 App::~App()
@@ -42,14 +42,15 @@ int App::DoFrame()
 
 void App::Logic()
 {
-	//MS->Update(wnd);
+	MS->Update(wnd);
 	//KS->Control(wnd);
+	//KF->Control(wnd);
 }
 
 void App::Draw()
 {
-//	MS->Draw();
+	MS->Draw();
 	//KS->Draw();
-	KF->Draw();
+	//KF->Draw();
 }
 
