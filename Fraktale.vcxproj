@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="BransleyFern.h" />
     <ClInclude Include="ChiliTimer.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="KochSnowflake.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="BransleyFern.cpp" />
     <ClCompile Include="ChiliTimer.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="KochSnowflake.cpp" />

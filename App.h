@@ -5,6 +5,7 @@
 #include "MandelbrotSet.h"
 #include "KochSnowflake.h"
 #include "TriangleFractal.h"
+#include "BransleyFern.h"
 class App
 {
 public:
@@ -23,5 +24,6 @@ private:
 	MandelbrotSet* MS = nullptr;
 	KochSnowflake* KS = nullptr;
 	TriangleFractal* KF = nullptr;
+	BransleyFern* BF = nullptr;
 };
 

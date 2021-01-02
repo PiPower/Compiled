@@ -11,6 +11,7 @@ App::App(int width, int height)
 	auto v2 = Vertex(1.0f, -0.7f);
 	KS = new KochSnowflake(v1, v2, wnd->Dx11);
 	KF = new TriangleFractal(Vertex(0.0,1.0), Vertex(-0.8, -1.0), Vertex(0.8, -1.0),wnd->Dx11);
+	BF = new BransleyFern(wnd->Dx11, 50000000);
 }
 
 App::~App()
@@ -21,6 +22,8 @@ App::~App()
 	KS = nullptr;
 	delete MS;
 	MS = nullptr;
+	delete BF;
+	BF = nullptr;
 }
 
 int App::DoFrame()
@@ -42,15 +45,17 @@ int App::DoFrame()
 
 void App::Logic()
 {
-	MS->Update(wnd);
+	//MS->Update(wnd);
 	//KS->Control(wnd);
 	//KF->Control(wnd);
+	BF->Control(wnd);
 }
 
 void App::Draw()
 {
-	MS->Draw();
+	//MS->Draw();
 	//KS->Draw();
 	//KF->Draw();
+	BF->Draw();
 }
 

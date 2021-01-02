@@ -107,7 +107,7 @@ void Graphics::EndFrame()
 
 void Graphics::BeginFrame()
 {
-	const float color[] = { 0,0,0,0 };
+	const float color[] = { 1,1,1,1 };
 	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), color);
 	d2RenderTarget->BeginDraw();
 }
